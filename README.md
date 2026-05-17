@@ -146,16 +146,4 @@ The remaining pieces for the merged Path C top-venue paper are:
 * **Phase 3 — Detection layer** — use grammar violation as a runtime forensic detector
 * **Phase 4 — Cross-dataset validation** — CIC-IDS-2017 and TON_IoT loaders
 * **Phase 5 — Adaptive constraint-aware adversary** — projected-gradient attacks that respect the grammar
-
-## Citing
-
-If you build on this code, please cite the eventual paper. Until then:
-
-```bibtex
-@misc{pgcav_grammar_2026,
-  title = {A Formal Protocol Constraint Grammar for NetFlow Intrusion Detection},
-  author = {Your Name},
-  year = {2026},
-  note = {Implementation of the PGCAV grammar over UNSW-NB15}
-}
 ```
