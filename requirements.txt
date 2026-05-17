@@ -1,4 +1,4 @@
-# PGCAV Paper 1 — pinned dependencies
+# PGCAV Paper 1 + Phase 2 — pinned dependencies
 # Python >= 3.10 required.
 #
 # Install with:   pip install -r requirements.txt
@@ -11,6 +11,10 @@ seaborn==0.13.0
 scipy==1.11.4
 pyarrow==14.0.2
 tqdm==4.66.1
+
+# Phase 2C: adversarial generation
+# HopSkipJump uses ART; FGSM/PGD use our own finite-difference implementation
+adversarial-robustness-toolbox==1.18.0
 
 # optional: nicer Jupyter EDA workflow
 jupyterlab==4.0.10

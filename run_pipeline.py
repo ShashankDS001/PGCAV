@@ -30,6 +30,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 from experiments import (
     e1_eda, e2_calibration, e3_figures, e4_train_classifiers,
+    e5_generate_adversarials, e6_detection_evaluation,
 )
 
 
@@ -38,6 +39,8 @@ STEPS = [
     ("calibration",  "Grammar calibration",                e2_calibration.main),
     ("figures",      "Paper 1 figures",                    e3_figures.main),
     ("classifiers",  "Train RF + MLP + baseline metrics",  e4_train_classifiers.main),
+    ("adversarials", "Generate adversarial corpora",       e5_generate_adversarials.main),
+    ("detection",    "Grammar-as-Detector evaluation",     e6_detection_evaluation.main),
 ]
 STEP_NAMES = [s[0] for s in STEPS]
 
