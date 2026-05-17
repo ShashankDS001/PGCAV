@@ -1,0 +1,14 @@
+constraint_id,tier,rfc,description,required_features,missing_features,n_rows,n_violations,fpr,fpr_pct,fpr_ci_lo_pct,fpr_ci_hi_pct,status
+C01_ttl_range,1.0,RFC 791 §3.1,"IP TTL in [1, 255]","sttl,dttl",,2218764,244236.0,0.11007750260956099,11.007750260956099,10.814974999999997,11.216025000000004,Demoted to Informational
+C09_loss_leq_pkts,2.0,Derived,Loss counts <= packet counts,"sloss,spkts,dloss,dpkts",,2218764,6.0,2.704208288939247e-06,0.0002704208288939247,0.0,0.002000000000002,Active
+C02_tcp_window,1.0,RFC 793 §3.1,"TCP window in [0, 65535] when proto=tcp","swin,dwin,proto",,2218764,0.0,0.0,0.0,0.0,0.0,Active
+C03_tcp_seq,1.0,RFC 793 §3.1,"TCP base-seq in [0, 2^32-1]","stcpb,dtcpb",,2218764,0.0,0.0,0.0,0.0,0.0,Active
+C04_non_neg_dur,1.0,Derived,Flow duration >= 0,dur,,2218764,0.0,0.0,0.0,0.0,0.0,Active
+C12_non_neg_jitter,1.0,Derived,Jitter magnitudes >= 0,"sjit,djit",,2218764,0.0,0.0,0.0,0.0,0.0,Active
+C05_non_neg_timing,2.0,Derived,"Timing values (tcprtt, synack, ackdat) >= 0","tcprtt,synack,ackdat",,2218764,0.0,0.0,0.0,0.0,0.0,Active
+C06_non_neg_bytes,2.0,Derived,Byte counts >= 0,"sbytes,dbytes",,2218764,0.0,0.0,0.0,0.0,0.0,Active
+C07_non_neg_pkts,2.0,Derived,Packet counts >= 0,"spkts,dpkts",,2218764,0.0,0.0,0.0,0.0,0.0,Active
+C08_bytes_geq_pkts,2.0,Derived,sbytes >= spkts and dbytes >= dpkts,"sbytes,spkts,dbytes,dpkts",,2218764,0.0,0.0,0.0,0.0,0.0,Active
+C10_smean_consistency,2.0,Derived,smeansz * spkts ≈ sbytes (within tolerance),"smeansz,spkts,sbytes",,2218764,0.0,0.0,0.0,0.0,0.0,Active
+C11_tcp_handshake_timing,2.0,Derived,TCP: tcprtt ≈ synack + ackdat (within tolerance),"tcprtt,synack,ackdat,proto",,2218764,0.0,0.0,0.0,0.0,0.0,Active
+OVERALL_ACTIVE_MEAN,,—,Mean FPR across constraints that were actually evaluated,,,2218764,,2.458371171762952e-07,2.4583711717629518e-05,,,"Target: <= 2.00%  (11 evaluated, 0 skipped)"

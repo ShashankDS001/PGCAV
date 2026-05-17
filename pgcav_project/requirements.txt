@@ -1,0 +1,19 @@
+# PGCAV Paper 1 — pinned dependencies
+# Python >= 3.10 required.
+#
+# Install with:   pip install -r requirements.txt
+
+pandas==2.1.4
+numpy==1.26.4
+scikit-learn==1.3.2
+matplotlib==3.8.2
+seaborn==0.13.0
+scipy==1.11.4
+pyarrow==14.0.2
+tqdm==4.66.1
+
+# optional: nicer Jupyter EDA workflow
+jupyterlab==4.0.10
+
+# pytest is optional — the test files can be run with `python tests/test_x.py`
+pytest==7.4.4

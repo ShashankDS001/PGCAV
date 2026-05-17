@@ -1,0 +1,55 @@
+# =========================
+# Python
+# =========================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Virtual environments
+.venv/
+venv/
+env/
+.venvpgcav/
+
+# Build / packaging
+build/
+dist/
+*.egg-info/
+
+# Testing / cache
+.pytest_cache/
+.mypy_cache/
+
+# =========================
+# Data (DO NOT upload datasets)
+# =========================
+data/raw/
+data/processed/*.parquet
+data/processed/*.feather
+*.parquet
+
+# =========================
+# Models
+# =========================
+*.pkl
+
+# =========================
+# Results
+# =========================
+results/figures/*.pdf
+*.log
+
+# =========================
+# Jupyter
+# =========================
+.ipynb_checkpoints/
+
+# =========================
+# IDE / OS files
+# =========================
+.DS_Store
+.idea/
+.vscode/
+*.swp

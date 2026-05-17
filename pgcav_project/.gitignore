@@ -1,0 +1,33 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+env/
+build/
+dist/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+
+# Data — do NOT commit the dataset
+data/raw/*.csv
+data/raw/*.CSV
+data/processed/*.parquet
+data/processed/*.feather
+
+# Results — keep table CSVs in repo but not the bulky figure intermediates
+results/figures/*.pdf
+*.log
+
+# OS / IDE
+.DS_Store
+.idea/
+.vscode/
+*.swp
+
+# Jupyter
+.ipynb_checkpoints/
