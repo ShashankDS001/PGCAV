@@ -1,0 +1,6 @@
+constraint_id,tier,unsw_equivalent,description,missing_features,n_rows,n_violations,fpr,fpr_pct,fpr_ci_lo_pct,fpr_ci_hi_pct,status
+CC04_bytes_geq_pkts,2,C08,Bytes >= packet count per direction,,2273097,333991,0.14693213707993982,14.693213707993982,14.480000000000004,14.910100000000002,Demoted to Informational
+CC01_non_neg_duration,1,C04,Flow duration >= 0,,2273097,115,5.059176973090018e-05,0.005059176973090018,0.000999999999995449,0.009999999999998899,Active
+CC02_non_neg_bytes,2,C06,Total bytes >= 0 (flags CICFlowMeter overflow bug),,2273097,0,0.0,0.0,0.0,0.0,Active
+CC03_non_neg_pkts,2,C07,Packet counts >= 0,,2273097,0,0.0,0.0,0.0,0.0,Active
+CC05_fwd_mean_consistency,2,C10,fwd mean pkt size × fwd pkt count ≈ total fwd bytes,,2273097,0,0.0,0.0,0.0,0.0,Active

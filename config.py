@@ -68,13 +68,39 @@ BOOTSTRAP_SAMPLE_SIZE = 100_000    # subsample size for bootstrap (full would be
 SMEAN_REL_TOLERANCE = 0.05         # 5% relative tolerance on smean = sbytes/spkts
 TCPRTT_ABS_TOLERANCE = 0.01        # 10 ms absolute tolerance on tcprtt = synack + ackdat
 
+# ── CIC-IDS-2017 dataset (second dataset for cross-validation) ────────
+# Place the 8 MachineLearningCSV files in data/raw/CICIDS2017/
+# Download from: https://www.unb.ca/cic/datasets/ids-2017.html
+# The folder name is case-insensitive on Windows; we accept both cases
+# via auto-detection in data_loader_cicids.py.
+CICIDS_DIR = DATA_RAW / "CICIDS2017"
+CICIDS_FILES = [
+    "Monday-WorkingHours.pcap_ISCX.csv",
+    "Tuesday-WorkingHours.pcap_ISCX.csv",
+    "Wednesday-workingHours.pcap_ISCX.csv",
+    "Thursday-WorkingHours-Morning-WebAttacks.pcap_ISCX.csv",
+    "Thursday-WorkingHours-Afternoon-Infilteration.pcap_ISCX.csv",
+    "Friday-WorkingHours-Morning.pcap_ISCX.csv",
+    "Friday-WorkingHours-Afternoon-DDos.pcap_ISCX.csv",
+    "Friday-WorkingHours-Afternoon-PortScan.pcap_ISCX.csv",
+]
+CICIDS_LABEL_COL    = "label"
+CICIDS_BENIGN_STR   = "benign"
+CICIDS_NORMAL_PARQUET = DATA_PROCESSED / "cicids_normal.parquet"
+CICIDS_FULL_PARQUET   = DATA_PROCESSED / "cicids_full.parquet"
+CICIDS_TRAIN_PARQUET  = DATA_PROCESSED / "cicids_train.parquet"
+CICIDS_TEST_PARQUET   = DATA_PROCESSED / "cicids_test.parquet"
+
 # ── Phase 2: Classifier training paths ────────────────────────────────
 MODELS_DIR = BASE_DIR / "models"
 DATA_ADVERSARIAL = BASE_DIR / "data" / "adversarial"
 for _d in [MODELS_DIR, DATA_ADVERSARIAL]:
     _d.mkdir(parents=True, exist_ok=True)
 
-# Train/test split convention from the UNSW-NB15 paper:
+CICIDS_MODELS_DIR = MODELS_DIR / "cicids"
+CICIDS_ADV_DIR    = DATA_ADVERSARIAL / "cicids"
+for _d in [CICIDS_MODELS_DIR, CICIDS_ADV_DIR]:
+    _d.mkdir(parents=True, exist_ok=True)
 #   Files 1-3 = training, File 4 = test (held out)
 PROCESSED_TRAIN_PARQUET = DATA_PROCESSED / "unsw_train.parquet"
 PROCESSED_TEST_PARQUET = DATA_PROCESSED / "unsw_test.parquet"
@@ -106,7 +132,7 @@ MLP_PARAMS = {
     "alpha": 1e-4,
     "batch_size": 256,
     "learning_rate_init": 1e-3,
-    "max_iter": 50,
+    "max_iter": 100,
     "early_stopping": True,
     "validation_fraction": 0.1,
     "n_iter_no_change": 5,

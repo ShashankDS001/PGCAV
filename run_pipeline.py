@@ -31,16 +31,22 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 from experiments import (
     e1_eda, e2_calibration, e3_figures, e4_train_classifiers,
     e5_generate_adversarials, e6_detection_evaluation,
+    e7_cicids_calibration, e8_cicids_classifiers,
+    e9_cicids_adversarials, e10_cicids_detection,
 )
 
 
 STEPS = [
-    ("eda",          "Feature audit (EDA)",                e1_eda.main),
-    ("calibration",  "Grammar calibration",                e2_calibration.main),
-    ("figures",      "Paper 1 figures",                    e3_figures.main),
-    ("classifiers",  "Train RF + MLP + baseline metrics",  e4_train_classifiers.main),
-    ("adversarials", "Generate adversarial corpora",       e5_generate_adversarials.main),
-    ("detection",    "Grammar-as-Detector evaluation",     e6_detection_evaluation.main),
+    ("eda",                "Feature audit (EDA)",                  e1_eda.main),
+    ("calibration",        "Grammar calibration (UNSW-NB15)",      e2_calibration.main),
+    ("figures",            "Paper 1 figures",                      e3_figures.main),
+    ("classifiers",        "Train RF + MLP (UNSW-NB15)",           e4_train_classifiers.main),
+    ("adversarials",       "Adversarial corpora (UNSW-NB15)",      e5_generate_adversarials.main),
+    ("detection",          "Grammar detection (UNSW-NB15)",        e6_detection_evaluation.main),
+    ("cicids_calibration", "Grammar calibration (CIC-IDS-2017)",   e7_cicids_calibration.main),
+    ("cicids_classifiers", "Train RF + MLP (CIC-IDS-2017)",        e8_cicids_classifiers.main),
+    ("cicids_adversarials","Adversarial corpora (CIC-IDS-2017)",   e9_cicids_adversarials.main),
+    ("cicids_detection",   "Grammar detection (CIC-IDS-2017)",     e10_cicids_detection.main),
 ]
 STEP_NAMES = [s[0] for s in STEPS]
 

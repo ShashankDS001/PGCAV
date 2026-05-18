@@ -48,6 +48,13 @@ def _log(msg: str) -> None:
 class Preprocessor:
     """Fit on training rows, transform any rows of the same schema.
 
+    Parameters (all optional — defaults match UNSW-NB15 config)
+    ----------
+    target_col      : name of the binary label column to separate as y
+    drop_cols       : columns to drop before building X (identifiers, timestamps)
+    categorical_cols: string columns to one-hot encode. Pass [] for datasets
+                      where all features are already numeric (e.g. CIC-IDS-2017).
+
     State after `fit`:
         self.categorical_levels_ : dict[col, list of seen values]
         self.numeric_cols_       : list of numeric column names (post-drop)
@@ -55,7 +62,16 @@ class Preprocessor:
         self.feature_names_      : final ordered feature names in X
     """
 
-    def __init__(self):
+    def __init__(
+        self,
+        target_col: Optional[str] = None,
+        drop_cols: Optional[list[str]] = None,
+        categorical_cols: Optional[list[str]] = None,
+    ):
+        self._target_col = target_col or LABEL_COL
+        self._drop_cols  = drop_cols  if drop_cols  is not None else DROP_COLS_FOR_TRAINING
+        self._cat_cols   = categorical_cols if categorical_cols is not None else CATEGORICAL_COLS
+
         self.categorical_levels_: dict[str, list[str]] = {}
         self.numeric_cols_: list[str] = []
         self.scaler_: Optional[RobustScaler] = None
@@ -64,10 +80,14 @@ class Preprocessor:
 
     # ── helpers ───────────────────────────────────────────────────────
     def _split_xy(self, df: pd.DataFrame) -> tuple[pd.DataFrame, pd.Series]:
-        if LABEL_COL not in df.columns:
-            raise KeyError(f"target column '{LABEL_COL}' missing from DataFrame")
-        y = df[LABEL_COL].astype(int)
-        drop = [c for c in DROP_COLS_FOR_TRAINING if c in df.columns]
+        if self._target_col not in df.columns:
+            raise KeyError(f"target column '{self._target_col}' missing. "
+                           f"Columns present: {df.columns.tolist()[:10]}")
+        y = df[self._target_col].astype(int)
+        drop = [c for c in self._drop_cols if c in df.columns]
+        # also always drop the target itself
+        if self._target_col in df.columns and self._target_col not in drop:
+            drop.append(self._target_col)
         X = df.drop(columns=drop, errors="ignore").copy()
         return X, y
 
@@ -77,6 +97,8 @@ class Preprocessor:
         Unseen categories collapse to the existing 'other' bucket so the
         column count is stable between train and test.
         """
+        if not self._cat_cols:
+            return df.copy()
         out = df.copy()
         for col in CATEGORICAL_COLS:
             if col not in out.columns:
@@ -95,11 +117,11 @@ class Preprocessor:
         X, _ = self._split_xy(df)
 
         # record categorical level sets — keep top-K most frequent + 'other'
-        for col in CATEGORICAL_COLS:
+        for col in self._cat_cols:
             if col not in X.columns:
                 continue
             vc = X[col].astype(str).str.lower().value_counts()
-            top = vc.head(20).index.tolist()    # cap cardinality
+            top = vc.head(20).index.tolist()
             if "other" not in top:
                 top.append("other")
             self.categorical_levels_[col] = top
@@ -109,7 +131,7 @@ class Preprocessor:
 
         # numeric columns are everything except the categorical encodings
         cat_encoded = [c for c in X_enc.columns
-                       if any(c.startswith(f"{cat}__") for cat in CATEGORICAL_COLS)]
+                       if any(c.startswith(f"{cat}__") for cat in self._cat_cols)]
         self.numeric_cols_ = [c for c in X_enc.columns if c not in cat_encoded]
 
         # fit a scaler on the numeric portion only
